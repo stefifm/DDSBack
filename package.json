@@ -2,12 +2,8 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
-  "directories": {
-    "test": "test"
-  },
+  "main": "index.js",
   "scripts": {
-    "test": "mocha ./test/test.js",
     "start": "node index.js"
   },
   "author": "",
