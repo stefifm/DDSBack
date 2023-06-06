@@ -15,10 +15,16 @@ app.use(express.json());
 app.use(cors());
 
 // Configuración de rutas
+<<<<<<< HEAD
 const routes = require("./routes/articulos");
 const clientesRoutes = require("./routes/clientes.routes.js");
 app.use("/", routes);
 app.use(clientesRoutes);
+=======
+const routeArticulos = require('./routes/articulos');
+app.use('/', routeArticulos);
+
+>>>>>>> refs/remotes/origin/main
 // Inicio del servidor
 const port = 4000;
 app.listen(port, () => {
