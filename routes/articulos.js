@@ -7,15 +7,15 @@ router.get("/api/articulos", async function (req, res) {
   // consulta de articulos con filtros y paginacion
 
   let where = {};
-  if (req.query.nombre != undefined && req.query.nombre !== "") {
+  if (req.query.Nombre != undefined && req.query.Nombre !== "") {
     where.Nombre = {
-      [Op.like]: "%" + req.query.nombre + "%",
+      [Op.like]: "%" + req.query.Nombre + "%",
     };
   }
-  if (req.query.activo != undefined && req.query.activo !== "") {
+  if (req.query.Activo != undefined && req.query.Activo !== "") {
     // true o false en el modelo, en base de datos es 1 o 0
     // convierto el string a booleano
-    where.Activo = req.query.activo === "true";
+    where.Activo = req.query.Activo === "true";
   }
   let items = await db.articulos.findAndCountAll({
     attributes: [
