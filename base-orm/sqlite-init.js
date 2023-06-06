@@ -8,8 +8,8 @@ async function CrearBaseSiNoExiste() {
 
   let existe = false;
   let res = null;
-
   existe = false;
+
   sql =
     "SELECT count(*) as contar FROM sqlite_schema WHERE type = 'table' and name= 'articulos'";
   res = await db.get(sql, []);
