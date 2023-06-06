@@ -15,8 +15,8 @@ app.use(express.json());
 app.use(cors());
 
 // Configuración de rutas
-const routes = require('./routes/articulos');
-app.use('/', routes);
+const routeArticulos = require('./routes/articulos');
+app.use('/', routeArticulos);
 
 // Inicio del servidor
 const port = 4000;
