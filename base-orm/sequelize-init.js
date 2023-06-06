@@ -3,14 +3,13 @@ const { Sequelize, DataTypes } = require("sequelize");
 //const sequelize = new Sequelize("sqlite:" + process.env.base );
 const sequelize = new Sequelize("sqlite:" + process.env.base);
 
-
 const articulos = sequelize.define(
   "articulos",
   {
     IdArticulo: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true,
+      autoIncrement: true
     },
     Nombre: {
       type: DataTypes.STRING(60),
@@ -18,17 +17,17 @@ const articulos = sequelize.define(
       validate: {
         notEmpty: {
           args: true,
-          msg: "Nombre es requerido",
+          msg: "Nombre es requerido"
         },
         len: {
           args: [5, 60],
-          msg: "Nombre debe ser tipo carateres, entre 5 y 60 de longitud",
-        },
+          msg: "Nombre debe ser tipo carateres, entre 5 y 60 de longitud"
+        }
       },
       unique: {
         args: true,
-        msg: "este Nombre ya existe en la tabla!",
-      },
+        msg: "este Nombre ya existe en la tabla!"
+      }
     },
     Precio: {
       type: DataTypes.DECIMAL(10, 2),
@@ -36,7 +35,7 @@ const articulos = sequelize.define(
       validate: {
         notNull: {
           args: true,
-          msg: "Precio es requerido",
+          msg: "Precio es requerido"
         }
       }
     },
@@ -46,13 +45,13 @@ const articulos = sequelize.define(
       validate: {
         notNull: {
           args: true,
-          msg: "Codigo De Barra es requerido",
+          msg: "Codigo De Barra es requerido"
         },
         is: {
           args: ["^[0-9]{13}$", "i"],
-          msg: "Codigo de Barra debe ser numerico de 13 digitos",
-        },
-      },
+          msg: "Codigo de Barra debe ser numerico de 13 digitos"
+        }
+      }
     },
     Stock: {
       type: DataTypes.INTEGER,
@@ -60,7 +59,7 @@ const articulos = sequelize.define(
       validate: {
         notNull: {
           args: true,
-          msg: "Stock es requerido",
+          msg: "Stock es requerido"
         }
       }
     },
@@ -70,7 +69,7 @@ const articulos = sequelize.define(
       validate: {
         notNull: {
           args: true,
-          msg: "Fecha Alta es requerido",
+          msg: "Fecha Alta es requerido"
         }
       }
     },
@@ -80,10 +79,10 @@ const articulos = sequelize.define(
       validate: {
         notNull: {
           args: true,
-          msg: "Activo es requerido",
+          msg: "Activo es requerido"
         }
       }
-    },
+    }
   },
   {
     // pasar a mayusculas
@@ -92,14 +91,65 @@ const articulos = sequelize.define(
         if (typeof articulo.Nombre === "string") {
           articulo.Nombre = articulo.Nombre.toUpperCase().trim();
         }
-      },
+      }
     },
 
-    timestamps: false,
+    timestamps: false
+  }
+);
+
+const clientes = sequelize.define(
+  "clientes",
+  {
+    IdCliente: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    ApellidoYNombre: {
+      type: DataTypes.STRING(60),
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: "Apellido y Nombre es requerido"
+        },
+        len: {
+          args: [5, 60],
+          msg: "Apellido y Nombre deben tener entre 5 y 60 caracteres"
+        }
+      },
+      unique: {
+        args: true,
+        msg: "este Apellido y Nombre ya existe en la tabla!"
+      }
+    },
+    DNI: {
+      type: DataTypes.STRING(8),
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: "DNI es requerido"
+        }
+      }
+    }
+  },
+  {
+    // Pasar a mayúsculas
+    hooks: {
+      beforeValidate: function (cliente, options) {
+        if (typeof cliente.ApellidoYNombre === "string") {
+          cliente.ApellidoYNombre = cliente.ApellidoYNombre.toUpperCase().trim();
+        }
+      }
+    },
+    timestamps: false
   }
 );
 
 module.exports = {
   sequelize,
   articulos,
+  clientes
 };
